@@ -1,0 +1,41 @@
+.app-header {
+  background: linear-gradient(90deg,#eef2ff,#f8fafc);
+  padding: 12px 20px;
+  border-bottom: 1px solid #e6e9ee;
+}
+.header-inner { max-width: 1100px; margin: 0 auto; display:flex; justify-content:space-between; align-items:center; }
+.brand { margin:0; color:#4c1d95; font-size:1.1rem; }
+.welcome { margin-left:12px; color:#374151; font-weight:600; }
+.logout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #374151;
+  font-weight: 600;
+}
+.logout-btn:hover { background: rgba(99,102,241,0.06); border-color: rgba(99,102,241,0.12); }
+.logout-icon { color: #374151; display:block; }
+.logout-label { display:inline-block; }
+
+.login-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(90deg,#3b82f6,#6366f1);
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.login-btn svg { opacity: 0.95; }
+.tagline { margin-left: 12px; color: #6b7280; font-size: 0.95rem; }
+
+/* Modal stacking: ensure confirm modal sits above toast */
+.overlay { z-index: 11000; }

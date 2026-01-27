@@ -1,0 +1,26 @@
+<div class="model-card">
+  <div class="card-header">
+    <svg class="model-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path [attr.d]="getModelIconPath()" fill="currentColor"/>
+    </svg>
+    <h3>{{ modelName }}</h3>
+    <select *ngIf="modelOptions.length > 0" [value]="selectedModel" (change)="onModelChange($event)">
+      <option *ngFor="let opt of modelOptions" [value]="opt">{{ opt }}</option>
+    </select>
+  </div>
+
+  <div class="card-content">
+    @if (isLoading) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading response...</p>
+      </div>
+    } @else if (response) {
+      <div class="response-container">
+        <pre class="response-text">{{ response }}</pre>
+      </div>
+    } @else {
+      <em class="no-response">Response to be loaded...</em>
+    }
+  </div>
+</div>

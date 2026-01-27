@@ -1,0 +1,72 @@
+.bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f9ff 0%, #a5b4fc 50%, #fbc2eb 100%), url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
+  background-blend-mode: lighten;
+  animation: login-bg-move 18s linear infinite alternate;
+  padding: 24px;
+}
+
+@keyframes login-bg-move {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 100px 100px, 200px 200px; }
+}
+
+.login-card {
+  width: 380px;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.12);
+  background: linear-gradient(180deg,#ffffff,#fbfdff);
+  text-align: center;
+  border: 1px solid rgba(99,102,241,0.06);
+}
+
+.app-title {
+  margin: 0 0 6px 0;
+  font-size: 1.45rem;
+  color: #4c1d95;
+  font-weight: 700;
+}
+
+.tag {
+  margin: 0 0 18px 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ee;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+input:focus { box-shadow: 0 6px 20px rgba(59,130,246,0.08); border-color: #3b82f6; }
+
+.login-btn {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#6366f1,#4f46e5);
+  color: white;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.hint {
+  margin-top: 12px;
+  color: #9ca3af;
+  font-size: 0.85rem;
+}

@@ -1,0 +1,113 @@
+.word-analysis-container {
+  background: linear-gradient(135deg, #f0f9ff 0%, #f3e8ff 100%);
+  border: 2px solid #c7d2fe;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.1);
+}
+
+.analysis-header {
+  margin-bottom: 16px;
+  border-bottom: 2px solid #c7d2fe;
+  padding-bottom: 12px;
+}
+
+.analysis-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4c1d95;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.analysis-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid #ddd6fe;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #6366f1;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #4c1d95;
+}
+
+.top-words-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 0.95rem;
+  color: #4c1d95;
+  font-weight: 600;
+}
+
+.words-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.word-item {
+  background: white;
+  border-left: 4px solid #6366f1;
+  padding: 10px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+.rank {
+  font-weight: 700;
+  color: #6366f1;
+  min-width: 24px;
+}
+
+.word {
+  flex: 1;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.count {
+  background: #e0e7ff;
+  color: #4c1d95;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.no-words {
+  color: #9ca3af;
+  font-style: italic;
+  margin: 0;
+  padding: 10px;
+}

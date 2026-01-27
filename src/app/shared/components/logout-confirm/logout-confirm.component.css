@@ -1,0 +1,23 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2,6,23,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+.modal {
+  width: 360px;
+  background: #fff;
+  padding: 18px 20px;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(2,6,23,0.2);
+  text-align: center;
+}
+.modal h3 { margin: 0 0 8px 0; color: #111827; }
+.modal p { margin: 0 0 16px 0; color: #6b7280; }
+.actions { display:flex; gap:10px; justify-content:center; }
+.btn { padding:8px 12px; border-radius:8px; cursor:pointer; border: none; }
+.btn.cancel { background:#f3f4f6; color:#111827; }
+.btn.confirm { background: linear-gradient(90deg,#ef4444,#f97316); color:#fff; font-weight:700; }

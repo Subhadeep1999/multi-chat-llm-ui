@@ -1,0 +1,63 @@
+<h2>Multi-LLM Chat</h2>
+
+<!-- Chat Input -->
+<app-chat-input (send)="onSend($event)"></app-chat-input>
+
+<!-- Error Banner -->
+@if (errorMessage) {
+  <div class="error-banner">
+    <strong>⚠️ Error:</strong> {{ errorMessage }}
+  </div>
+}
+
+<!-- Word Analysis -->
+<br />
+<app-word-analysis
+  [analysis]="wordAnalysis"
+  [isLoading]="
+    loadingStates['deepseek_chat'] ||
+    loadingStates['deepseek_coder'] ||
+    loadingStates['gemini']
+  ">
+</app-word-analysis>
+
+<hr />
+
+<!-- Models -->
+<div class="models-row">
+
+
+  <!-- DeepSeek Chat -->
+  <app-model-card
+    class="deepseek-chat"
+    modelName="DeepSeek Chat"
+    [response]="responses['deepseek_chat'] || ''"
+    [isLoading]="loadingStates['deepseek_chat']"
+    [modelOptions]="modelOptions['deepseek_chat']"
+    [selectedModel]="selectedModels['deepseek_chat']"
+    (modelChange)="onModelChange('deepseek_chat', $event)">
+  </app-model-card>
+
+  <!-- DeepSeek Coder -->
+  <app-model-card
+    class="deepseek-coder"
+    modelName="DeepSeek Coder"
+    [response]="responses['deepseek_coder'] || ''"
+    [isLoading]="loadingStates['deepseek_coder']"
+    [modelOptions]="modelOptions['deepseek_coder']"
+    [selectedModel]="selectedModels['deepseek_coder']"
+    (modelChange)="onModelChange('deepseek_coder', $event)">
+  </app-model-card>
+
+  <!-- Gemini -->
+  <app-model-card
+    class="gemini"
+    modelName="Gemini"
+    [response]="responses['gemini'] || ''"
+    [isLoading]="loadingStates['gemini']"
+    [modelOptions]="modelOptions['gemini']"
+    [selectedModel]="selectedModels['gemini']"
+    (modelChange)="onModelChange('gemini', $event)">
+  </app-model-card>
+
+</div>

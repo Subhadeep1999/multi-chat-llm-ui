@@ -1,0 +1,127 @@
+.model-card {
+	border: 2px solid #e5e7eb;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(16, 24, 40, 0.08);
+	/* Default fallback, will be overridden by type */
+	background: #ffffff;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 500px;
+	width: 300px;
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+	transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.5s;
+}
+/* Vibrant backgrounds for each model card */
+.model-card.deepseek-chat {
+	background: linear-gradient(135deg, #e0e7ff 0%, #a5b4fc 100%);
+}
+.model-card.deepseek-coder {
+	background: linear-gradient(135deg, #fef9c3 0%, #fcd34d 100%);
+}
+.model-card.gemini {
+	background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+}
+
+.model-card:hover {
+	box-shadow: 0 8px 20px rgba(16, 24, 40, 0.12);
+	border-color: #d1d5db;
+}
+
+.card-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 16px 16px;
+	border-bottom: 2px solid #f3f4f6;
+	background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.model-icon {
+	width: 28px;
+	height: 28px;
+	flex-shrink: 0;
+	color: #6366f1;
+}
+
+.model-card h3 {
+	margin: 0;
+	font-size: 1.15rem;
+	font-weight: 600;
+	color: #1f2937;
+	flex: 1;
+}
+
+.card-content {
+	flex: 1;
+	padding: 16px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.response-container {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	max-height: 320px;
+	overflow-y: auto;
+}
+
+.response-text {
+	margin: 0;
+	color: #111827;
+	font-size: 0.9rem;
+	line-height: 1.5;
+	white-space: pre-wrap;
+	word-break: break-word;
+	background: #f9fafb;
+	padding: 12px;
+	border-left: 3px solid #6366f1;
+	border-radius: 6px;
+	font-family: 'Courier New', monospace;
+	flex: 1;
+}
+
+.no-response {
+	color: #9ca3af;
+	font-style: italic;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+}
+
+/* Loading spinner animation */
+.loading-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	gap: 12px;
+}
+
+.loading-state p {
+	margin: 0;
+	color: #6b7280;
+	font-size: 0.95rem;
+	font-weight: 500;
+}
+
+.spinner {
+	width: 40px;
+	height: 40px;
+	border: 3px solid #e5e7eb;
+	border-top-color: #6366f1;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
