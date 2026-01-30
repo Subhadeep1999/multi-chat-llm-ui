@@ -1,35 +1,11 @@
 <header class="app-header">
-	<div class="header-inner">
-		<div class="left">
-			<h2 class="brand">{{ appName }}</h2>
-			@if(auth.isLoggedIn()) {
-			<span class="welcome">Welcome back, {{ auth.getUsername() }}!</span>
-			}
-			<!-- @if(!auth.isLoggedIn()) {
-			<span class="tagline">Please sign in to compare LLM responses</span>
-			} -->
-		</div>
-		<div class="right">
-			@if(auth.isLoggedIn()) {
-			<button class="logout-btn" (click)="logout()" aria-label="Logout">
-				<svg class="logout-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-					<path d="M16 17l5-5-5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-					<path d="M21 12H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-					<path d="M13 19H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-				</svg>
-				<span class="logout-label">Logout</span>
-			</button>
-			}
-			@if(!auth.isLoggedIn()) {
-			<span class="tagline">Please sign in to compare LLM responses</span>
-			
-			}
-		</div>
-	</div>
+  <div class="header-inner">
+    <div class="left">
+      <h2 class="brand">{{ appName }}</h2>
+    </div>
+  </div>
 </header>
 
 <app-toast></app-toast>
 
-	<app-logout-confirm *ngIf="showLogoutConfirm" (confirm)="performLogout()" (cancel)="showLogoutConfirm=false"></app-logout-confirm>
-
-	<router-outlet></router-outlet>
+<router-outlet></router-outlet>

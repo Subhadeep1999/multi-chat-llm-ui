@@ -1,19 +1,23 @@
 <div class="bg">
-  <div class="login-card" role="form" aria-label="Login form">
+  <div class="login-card">
     <h1 class="app-title">Multi-LLM Compare</h1>
-    <p class="tag">Compare responses from multiple LLMs side-by-side</p>
+    <p class="tag">Compare multiple LLMs side-by-side</p>
 
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <input formControlName="email" placeholder="Email" />
+      <input type="password" formControlName="password" placeholder="Password" />
 
-    <form [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
-      <label>
-        <input formControlName="username" (keydown.enter)="submit()" placeholder="Username" aria-label="Username" />
-      </label>
-      <label>
-        <input formControlName="password" type="password" placeholder="Password" aria-label="Password" />
-      </label>
-      <button type="submit" class="login-btn">Sign in</button>
+      <button class="login-btn" [disabled]="loading">
+        {{ isRegister ? 'Create Account' : 'Sign In' }}
+      </button>
     </form>
 
-    <div class="hint">Hint: <strong>admin</strong> / <em>password123</em></div>
+    <div id="google-btn" style="margin-top:12px"></div>
+
+    <div class="hint">
+      <a (click)="toggleMode()">
+        {{ isRegister ? 'Already have an account? Sign in' : 'New here? Create an account' }}
+      </a>
+    </div>
   </div>
 </div>

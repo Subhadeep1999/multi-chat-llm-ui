@@ -3,7 +3,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f0f9ff 0%, #a5b4fc 50%, #fbc2eb 100%), url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
+  background: linear-gradient(135deg, #f0f9ff 0%, #a5b4fc 50%, #fbc2eb 100%),
+              url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
   background-blend-mode: lighten;
   animation: login-bg-move 18s linear infinite alternate;
   padding: 24px;
@@ -51,7 +52,10 @@ input {
   outline: none;
 }
 
-input:focus { box-shadow: 0 6px 20px rgba(59,130,246,0.08); border-color: #3b82f6; }
+input:focus {
+  box-shadow: 0 6px 20px rgba(59,130,246,0.08);
+  border-color: #3b82f6;
+}
 
 .login-btn {
   width: 100%;
@@ -65,8 +69,13 @@ input:focus { box-shadow: 0 6px 20px rgba(59,130,246,0.08); border-color: #3b82f
   cursor: pointer;
 }
 
-.hint {
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.google-btn {
   margin-top: 12px;
-  color: #9ca3af;
-  font-size: 0.85rem;
+  background: #e5e7eb;
+  color: #6b7280;
 }

@@ -19,6 +19,17 @@
       <div class="response-container">
         <pre class="response-text">{{ response }}</pre>
       </div>
+      <ng-container *ngIf="!disabled && showSelect">
+        <button class="select-llm-btn redesigned" (click)="selectLlm()">
+          <span class="icon">&#10003;</span> Select &amp; Continue
+        </button>
+      </ng-container>
+      <ng-container *ngIf="selected && showReset">
+        <div class="selected-llm-label">Selected</div>
+        <button class="reset-llm-btn" (click)="resetLlm()">
+          <span class="icon">&#8634;</span> Reset
+        </button>
+      </ng-container>
     } @else {
       <em class="no-response">Response to be loaded...</em>
     }

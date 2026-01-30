@@ -1,13 +1,28 @@
-<form class="chat-input" [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
+<form
+  class="chat-input"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  autocomplete="off"
+>
   <input
     type="text"
     formControlName="prompt"
-    (keydown.enter)="submit()"
     placeholder="Type your prompt..."
     class="prompt-input"
     aria-label="Prompt input"
+    [disabled]="loading"
   />
-  <button type="submit" class="send-btn" aria-label="Send prompt">
-    Send
+
+  <button
+    type="submit"
+    class="send-btn"
+    [disabled]="loading || form.invalid"
+    aria-label="Send prompt"
+  >
+    @if (loading) {
+      ⏳ Sending...
+    } @else {
+      Send
+    }
   </button>
 </form>

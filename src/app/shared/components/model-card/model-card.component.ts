@@ -11,11 +11,22 @@ import { CommonModule } from '@angular/common';
 })
 export class ModelCardComponent implements OnChanges {
   @Input() modelName = '';
-  @Input() response = '';
+  @Input() response: string | null = '';
   @Input() isLoading = false;
   @Input() modelOptions: string[] = [];
   @Input() selectedModel = '';
+  @Input() showSelect = false;
+  @Input() showReset = false;
+  @Input() selected = false;
+  @Input() disabled = false;
   @Output() modelChange = new EventEmitter<string>();
+  @Output() select = new EventEmitter<string>();
+    selectLlm() {
+      this.select.emit(this.modelName);
+    }
+  resetLlm() {
+    this.select.emit('reset');
+  }
   onModelChange(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
     this.modelChange.emit(value);
