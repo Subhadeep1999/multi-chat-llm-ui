@@ -53,6 +53,20 @@ export class ChatComponent implements OnInit {
     this.loading = true;
     this.llmResponses = {};
     this.selectedLlm = null;
+    // Immediately show a new empty chat in the UI
+    const tempConv: Conversation = {
+      sessionId: 'temp-' + Date.now(),
+      mode: 'MULTI',
+      selectedLlm: null,
+      createdAt: new Date().toISOString(),
+      messages: []
+    };
+    this.conversations = [tempConv, ...this.conversations];
+    this.activeConversation = tempConv;
+    this.llmSelections = {};
+    this.loading = false;
+    this.cd.detectChanges();
+    // Now call backend to create real chat and replace temp chat
     this.chatService.startChat().subscribe({
       next: (res) => {
         const conv: Conversation = {
@@ -62,15 +76,18 @@ export class ChatComponent implements OnInit {
           createdAt: res.created_at,
           messages: []
         };
-        this.chatService.addConversation(conv);
+        // Replace temp chat with real one
+        this.conversations = this.conversations.map(c => c.sessionId === tempConv.sessionId ? conv : c);
         this.activeConversation = conv;
         this.llmSelections = {};
-        this.loading = false;
         this.cd.detectChanges();
       },
       error: (err) => {
+        // Remove temp chat if backend fails
+        this.conversations = this.conversations.filter(c => c.sessionId !== tempConv.sessionId);
+        this.activeConversation = this.conversations[0] || null;
+        this.cd.detectChanges();
         console.error('Failed to start chat', err);
-        this.loading = false;
       }
     });
   }
@@ -284,31 +301,27 @@ export class ChatComponent implements OnInit {
   // Show confirmation dialog and delete conversation from DB
   deleteConversation(conv: Conversation, event: Event) {
     event.stopPropagation();
-    // Show confirmation popup
     if (!window.confirm(`Are you sure you want to delete this conversation? This action cannot be undone.`)) {
       return;
     }
     this.loading = true;
+    // Optimistically remove from UI
+    const wasActive = this.activeConversation && this.activeConversation.sessionId === conv.sessionId;
+    this.conversations = this.conversations.filter(c => c.sessionId !== conv.sessionId);
+    if (wasActive) {
+      if (this.conversations.length > 0) {
+        this.activeConversation = this.conversations[0];
+        this.loadChatHistory(this.activeConversation.sessionId);
+      } else {
+        this.activeConversation = null;
+      }
+    }
     this.cd.detectChanges();
     // Call backend to delete conversation by sessionId
     this.chatService.deleteSession(conv.sessionId).subscribe({
       next: () => {
-        // After successful delete, fetch updated conversations from backend
-        this.chatService.getConversations().subscribe(convs => {
-          this.conversations = convs;
-          // If the deleted conversation was active, switch to another
-          if (this.activeConversation && this.activeConversation.sessionId === conv.sessionId) {
-            if (this.conversations.length > 0) {
-              this.activeConversation = this.conversations[0];
-              this.loadChatHistory(this.activeConversation.sessionId);
-            } else {
-              this.activeConversation = null;
-              // Do not start a new chat automatically after deletion
-            }
-          }
-          this.loading = false;
-          this.cd.detectChanges();
-        });
+        this.loading = false;
+        this.cd.detectChanges();
       },
       error: (err) => {
         this.loading = false;
