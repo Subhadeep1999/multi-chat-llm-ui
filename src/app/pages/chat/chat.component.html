@@ -33,11 +33,11 @@
     <ng-container *ngIf="activeConversation; else noConversation">
       <div class="chat-messages-scroll grouped-chat">
         <ng-container *ngFor="let group of getPromptResponseGroups()">
-          <div class="prompt-row">
+          <div class="prompt-row" style="display: flex; justify-content: flex-end;">
             <div class="vibrant-prompt">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 6px;"><rect x="2" y="2" width="20" height="20" rx="6" fill="#f472b6"/><path d="M8 12h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
-              <span style="font-weight: 600; font-size: 1.08rem; color: #f472b6; letter-spacing: 0.5px;">Prompt:</span>
-              <span style="margin-left: 8px; color: #f1f5f9; font-size: 1.08rem;">{{ group.prompt.content }}</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="vertical-align: middle; margin-right: 6px;"><rect x="2" y="2" width="20" height="20" rx="6" fill="#38bdf8"/><path d="M8 12h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+              <span style="font-weight: 600; font-size: 1.08rem; color: #0f172a; letter-spacing: 0.5px;">Prompt:</span>
+              <span style="margin-left: 8px; color: #0f172a; font-size: 1.08rem;">{{ group.prompt.content }}</span>
             </div>
           </div>
           <div class="llm-card-row">

@@ -1,3 +1,6 @@
+// ---------------------------
+// Delete conversation
+// ---------------------------
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
@@ -12,7 +15,7 @@ export class ChatService {
   private conversations$ = new BehaviorSubject<Conversation[]>([]);
   private activeConversation$ = new BehaviorSubject<Conversation | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // ---------------------------
   // Conversation state
@@ -35,6 +38,10 @@ export class ChatService {
       }));
       this.conversations$.next(conversations);
     });
+  }
+
+  deleteSession(sessionId: string) {
+    return this.http.delete<any>(`${this.API}/delete/${sessionId}`);
   }
 
   getActiveConversation() {

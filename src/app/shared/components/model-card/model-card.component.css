@@ -1,9 +1,8 @@
 .model-card {
-	border: 2.5px solid #f472b6;
+	border: 2.5px solid #38bdf8;
 	border-radius: 16px;
 	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13);
-	/* Default fallback, will be overridden by type */
-	background: #ffffff;
+	background: linear-gradient(135deg, #38bdf8 0%, #06b6d4 100%);
 	position: relative;
 	overflow: hidden;
 	display: flex;

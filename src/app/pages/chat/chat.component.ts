@@ -39,10 +39,11 @@ export class ChatComponent implements OnInit {
     this.chatService.getConversations().subscribe(convs => {
       this.conversations = convs;
       if (convs.length === 0) {
-        this.startNewChat();
+        this.activeConversation = null;
+        // Do not start a new chat automatically after deletion
       } else {
-        this.activeConversation = convs[0];
-        this.loadChatHistory(this.activeConversation.sessionId);
+        // Use selectConversation to fetch full history for first conversation
+        this.selectConversation(convs[0]);
       }
     });
   }
@@ -231,6 +232,9 @@ export class ChatComponent implements OnInit {
 
   // 🔹 Select conversation
   selectConversation(conv: Conversation): void {
+    // Set activeConversation immediately for UI update
+    this.activeConversation = conv;
+    this.cd.detectChanges();
     // Fetch full chat history for this conversation
     this.http.get<any[]>(`${environment.apiBaseUrl}/chat/history/${conv.sessionId}`).subscribe({
       next: (messages) => {
@@ -242,7 +246,6 @@ export class ChatComponent implements OnInit {
           selected_llm: m.selected_llm,
           id: m.id
         }));
-        this.activeConversation = conv;
         // Restore selectedLlm from the last user message with a selected_llm
         if (conv && conv.messages) {
           const lastUser = [...conv.messages].reverse().find(m => m.role === 'user' && m.selected_llm);
@@ -278,21 +281,40 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  // Show confirmation dialog and delete conversation from DB
   deleteConversation(conv: Conversation, event: Event) {
     event.stopPropagation();
-    const idx = this.conversations.indexOf(conv);
-    if (idx > -1) {
-      this.conversations.splice(idx, 1);
-      // If the deleted conversation was active, switch to another
-      if (this.activeConversation === conv) {
-        if (this.conversations.length > 0) {
-          this.activeConversation = this.conversations[0];
-          this.loadChatHistory(this.activeConversation.sessionId);
-        } else {
-          this.activeConversation = null;
-        }
-      }
-      this.cd.detectChanges();
+    // Show confirmation popup
+    if (!window.confirm(`Are you sure you want to delete this conversation? This action cannot be undone.`)) {
+      return;
     }
+    this.loading = true;
+    this.cd.detectChanges();
+    // Call backend to delete conversation by sessionId
+    this.chatService.deleteSession(conv.sessionId).subscribe({
+      next: () => {
+        // After successful delete, fetch updated conversations from backend
+        this.chatService.getConversations().subscribe(convs => {
+          this.conversations = convs;
+          // If the deleted conversation was active, switch to another
+          if (this.activeConversation && this.activeConversation.sessionId === conv.sessionId) {
+            if (this.conversations.length > 0) {
+              this.activeConversation = this.conversations[0];
+              this.loadChatHistory(this.activeConversation.sessionId);
+            } else {
+              this.activeConversation = null;
+              // Do not start a new chat automatically after deletion
+            }
+          }
+          this.loading = false;
+          this.cd.detectChanges();
+        });
+      },
+      error: (err) => {
+        this.loading = false;
+        this.cd.detectChanges();
+        window.alert('Failed to delete conversation. Please try again.');
+      }
+    });
   }
 }
