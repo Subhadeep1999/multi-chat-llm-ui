@@ -1,8 +1,8 @@
 .model-card {
-	border: 2.5px solid #38bdf8;
+	border: 2.5px solid #334155;
 	border-radius: 16px;
-	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13);
-	background: linear-gradient(135deg, #38bdf8 0%, #06b6d4 100%);
+	box-shadow: 0 4px 24px 0 rgba(16, 24, 40, 0.18);
+	background: #1e293b;
 	position: relative;
 	overflow: hidden;
 	display: flex;
@@ -11,21 +11,26 @@
 	min-height: 500px;
 	width: 300px;
 	transition: box-shadow 0.3s, border-color 0.3s, background 0.5s;
-}
+	}
+	.model-card.selected {
+		border-color: #6366f1;
+		box-shadow: 0 0 0 3px #6366f1, 0 4px 24px 0 rgba(16, 24, 40, 0.18);
+	}
+
 /* Vibrant backgrounds for each model card */
 .model-card.deepseek-chat {
-	background: linear-gradient(135deg, #e0e7ff 0%, #a5b4fc 100%);
+	background: #1e293b;
 }
 .model-card.deepseek-coder {
-	background: linear-gradient(135deg, #fef9c3 0%, #fcd34d 100%);
+	background: #1e293b;
 }
 .model-card.gemini {
-	background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+	background: #1e293b;
 }
 
 .model-card:hover {
-	box-shadow: 0 8px 20px rgba(16, 24, 40, 0.12);
-	border-color: #d1d5db;
+	box-shadow: 0 8px 32px 0 rgba(99, 102, 241, 0.18);
+	border-color: #6366f1;
 }
 
 .card-header {
@@ -33,8 +38,9 @@
 	align-items: center;
 	gap: 12px;
 	padding: 16px 16px;
-	border-bottom: 2.5px solid #f472b6;
-	background: linear-gradient(90deg, #fbc2eb 0%, #a6c1ee 100%);
+	border-bottom: 2.5px solid #334155;
+	background: rgba(30,41,59,0.85);
+	backdrop-filter: blur(2px);
 }
 
 .model-icon {
@@ -48,10 +54,10 @@
 	margin: 0;
 	font-size: 1.18rem;
 	font-weight: 700;
-	color: #f472b6;
+	color: #f1f5f9;
 	flex: 1;
 	letter-spacing: 0.5px;
-	text-shadow: 0 2px 8px #fbc2eb44;
+	text-shadow: none;
 }
 
 .card-content {
@@ -72,16 +78,16 @@
 
 .response-text {
 	margin: 0;
-	color: #111827;
-	font-size: 0.9rem;
+	color: #f1f5f9;
+	font-size: 0.98rem;
 	line-height: 1.5;
 	white-space: pre-wrap;
 	word-break: break-word;
-	background: #f9fafb;
+	background: #334155;
 	padding: 12px;
 	border-left: 3px solid #6366f1;
 	border-radius: 6px;
-	font-family: 'Courier New', monospace;
+	font-family: 'JetBrains Mono', 'Fira Mono', 'Menlo', 'monospace';
 	flex: 1;
 }
 
@@ -128,49 +134,49 @@
 
 /* Redesigned select & continue button */
 .select-llm-btn.redesigned {
-  margin-top: 12px;
-  background: linear-gradient(90deg, #6d28d9 60%, #a5b4fc 100%);
-  color: #fff;
-  border: none;
-  border-radius: 24px;
-  padding: 10px 28px;
-  font-size: 1.08rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(109,40,217,0.10);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background 0.2s, box-shadow 0.2s;
+	margin-top: 12px;
+	background: #6366f1;
+	color: #f1f5f9;
+	border: none;
+	border-radius: 24px;
+	padding: 10px 28px;
+	font-size: 1.08rem;
+	font-weight: 700;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(99,102,241,0.10);
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	transition: background 0.2s, box-shadow 0.2s;
 }
 .select-llm-btn.redesigned .icon {
   font-size: 1.2em;
   margin-right: 4px;
 }
 .select-llm-btn.redesigned:hover {
-  background: linear-gradient(90deg, #4c1d95 60%, #a5b4fc 100%);
-  box-shadow: 0 4px 16px rgba(109,40,217,0.16);
+	background: #818cf8;
+	box-shadow: 0 4px 16px rgba(99,102,241,0.18);
 }
 .reset-llm-btn {
-  margin-top: 10px;
-  background: #fff;
-  color: #6d28d9;
-  border: 1.5px solid #6d28d9;
-  border-radius: 18px;
-  padding: 6px 18px;
-  font-size: 0.98rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: background 0.2s, color 0.2s;
+	margin-top: 10px;
+	background: transparent;
+	color: #6366f1;
+	border: 2px solid #6366f1;
+	border-radius: 18px;
+	padding: 6px 18px;
+	font-size: 0.98rem;
+	font-weight: 600;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	transition: background 0.2s, color 0.2s;
 }
 .reset-llm-btn .icon {
   font-size: 1.1em;
   margin-right: 3px;
 }
 .reset-llm-btn:hover {
-  background: #f3e8ff;
-  color: #4c1d95;
+	background: #6366f1;
+	color: #f1f5f9;
 }
