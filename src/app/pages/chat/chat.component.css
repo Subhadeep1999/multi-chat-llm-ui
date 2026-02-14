@@ -1,3 +1,298 @@
+.wave-container {
+	position: relative;
+	width: 90px;
+	height: 40px;
+	margin: 18px auto 12px auto;
+}
+.wave-svg {
+	width: 100%;
+	height: 40px;
+	display: block;
+}
+.floating-icon {
+	position: absolute;
+	font-size: 1.3rem;
+	animation: floatIcon 2.2s infinite ease-in-out;
+}
+.floating1 { left: 10px; top: 2px; animation-delay: 0s; }
+.floating2 { left: 38px; top: 0px; animation-delay: 0.5s; }
+.floating3 { left: 66px; top: 6px; animation-delay: 1s; }
+@keyframes floatIcon {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-12px); }
+}
+
+.typing-bubble-centered {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 18px 0 12px 0;
+}
+.bubble-main-centered {
+	background: linear-gradient(90deg, #a5b4fc 0%, #6366f1 100%);
+	border-radius: 18px;
+	padding: 8px 28px;
+	display: flex;
+	align-items: center;
+	box-shadow: 0 2px 8px 0 #a5b4fc33;
+	opacity: 0.22;
+}
+.typing-dot-centered {
+	width: 10px;
+	height: 10px;
+	margin: 0 4px;
+	background: #fff;
+	border-radius: 50%;
+	opacity: 0.7;
+	animation: typingDotCentered 1.2s infinite;
+}
+.typing-dot-centered:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot-centered:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingDotCentered {
+	0%, 100% { opacity: 0.7; transform: translateY(0); }
+	50% { opacity: 1; transform: translateY(-6px); }
+}
+.welcome-cards-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 24px;
+	margin-bottom: 32px;
+}
+.welcome-card {
+	background: #f5f3ff;
+	border-radius: 16px;
+	box-shadow: 0 2px 12px 0 rgba(99, 102, 241, 0.07);
+	padding: 24px 18px 18px 18px;
+	min-width: 120px;
+	min-height: 120px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	transition: box-shadow 0.2s;
+}
+.welcome-card:hover {
+	box-shadow: 0 4px 24px 0 rgba(99, 102, 241, 0.16);
+}
+.card-label {
+	margin-top: 14px;
+	font-size: 0.98rem;
+	color: #6366f1;
+	font-weight: 600;
+	text-align: center;
+}
+/* Card 1: Chat Bubbles Sliding In */
+.bubbles-slide {
+	display: flex;
+	align-items: flex-end;
+	gap: 8px;
+	height: 40px;
+}
+.slide-bubble {
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #6366f1 60%, #818cf8 100%);
+	opacity: 0.92;
+	position: relative;
+	animation: slideInBubble 1.2s infinite alternate;
+}
+.slide-bubble1 { animation-delay: 0s; left: -8px; }
+.slide-bubble2 { animation-delay: 0.2s; left: 0; }
+.slide-bubble3 { animation-delay: 0.4s; left: 8px; }
+@keyframes slideInBubble {
+	0% { transform: translateY(20px) scale(0.8); opacity: 0.5; }
+	50% { transform: translateY(-8px) scale(1.1); opacity: 1; }
+	100% { transform: translateY(0) scale(1); opacity: 0.8; }
+}
+/* Card 2: Model Icons Pulsing */
+.icons-pulse {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+.icon-pulse {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.3rem;
+	font-weight: 700;
+	color: #fff;
+	background: linear-gradient(135deg, #818cf8 60%, #6366f1 100%);
+	animation: pulseIcon 1.3s infinite;
+}
+.icon-g { animation-delay: 0s; }
+.icon-o { animation-delay: 0.2s; }
+.icon-d { animation-delay: 0.4s; }
+@keyframes pulseIcon {
+	0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 #818cf8; }
+	50% { transform: scale(1.18); box-shadow: 0 0 12px 4px #a5b4fc44; }
+}
+/* Card 3: Wave Animation with Floating Icons */
+.wave-container {
+	position: relative;
+	width: 90px;
+	height: 40px;
+	margin-bottom: 2px;
+}
+.wave-svg {
+	width: 100%;
+	height: 40px;
+	display: block;
+}
+.floating-icon {
+	position: absolute;
+	font-size: 1.3rem;
+	animation: floatIcon 2.2s infinite ease-in-out;
+}
+.floating1 { left: 10px; top: 2px; animation-delay: 0s; }
+.floating2 { left: 38px; top: 0px; animation-delay: 0.5s; }
+.floating3 { left: 66px; top: 6px; animation-delay: 1s; }
+@keyframes floatIcon {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-12px); }
+}
+/* Card 4: Chat Bubble with Typing Animation */
+.typing-bubble {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 40px;
+}
+.bubble-main {
+	background: #818cf8;
+	border-radius: 18px;
+	padding: 8px 18px;
+	display: flex;
+	align-items: center;
+	box-shadow: 0 2px 8px 0 #a5b4fc33;
+}
+.typing-dot {
+	width: 7px;
+	height: 7px;
+	margin: 0 3px;
+	background: #fff;
+	border-radius: 50%;
+	opacity: 0.7;
+	animation: typingDot 1.2s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingDot {
+	0%, 100% { opacity: 0.7; transform: translateY(0); }
+	50% { opacity: 1; transform: translateY(-7px); }
+}
+/* Welcome animation styles for empty chat state (multi-bubble version) */
+.welcome-animation-alt {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 60px 0 24px 0;
+	color: #475569;
+	background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+	border-radius: 18px;
+	padding: 36px 7vw 32px 7vw;
+	box-shadow: 0 4px 32px 0 rgba(99, 102, 241, 0.08);
+	animation: fadeIn 1s;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.bubbles-bounce {
+	display: flex;
+	gap: 18px;
+	margin-bottom: 18px;
+	height: 48px;
+}
+.bubble {
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #6366f1 60%, #818cf8 100%);
+	box-shadow: 0 2px 8px 0 rgba(99, 102, 241, 0.10);
+	opacity: 0.92;
+	animation: bubbleBounce 1.2s infinite;
+}
+.bubble1 { animation-delay: 0s; }
+.bubble2 { animation-delay: 0.2s; }
+.bubble3 { animation-delay: 0.4s; }
+@keyframes bubbleBounce {
+	0%, 100% { transform: translateY(0);}
+	50% { transform: translateY(-18px);}
+}
+.welcome-message {
+	text-align: center;
+	margin-bottom: 18px;
+}
+.welcome-message h2 {
+	font-size: 1.7rem;
+	font-weight: 800;
+	background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+	margin-bottom: 8px;
+}
+.welcome-message p {
+	font-size: 1.08rem;
+	color: #6366f1;
+	margin: 0;
+}
+@keyframes fadeIn {
+	from { opacity: 0;}
+	to { opacity: 1;}
+}
+/* Welcome animation styles for empty chat state */
+.welcome-animation {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 60px 0 24px 0;
+	color: #475569;
+	background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%);
+	border-radius: 18px;
+	padding: 36px 24px 32px 24px;
+	box-shadow: 0 4px 32px 0 rgba(99, 102, 241, 0.08);
+	animation: fadeIn 1s;
+}
+.robot-container {
+	margin-bottom: 18px;
+}
+.robot-bounce {
+	animation: bounce 1.3s infinite alternate;
+}
+.welcome-message {
+	text-align: center;
+	margin-bottom: 18px;
+}
+.welcome-message h2 {
+	font-size: 1.7rem;
+	font-weight: 800;
+	background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+	margin-bottom: 8px;
+}
+.welcome-message p {
+	font-size: 1.08rem;
+	color: #6366f1;
+	margin: 0;
+}
+@keyframes bounce {
+	0% { transform: translateY(0);}
+	100% { transform: translateY(-14px);}
+}
+@keyframes fadeIn {
+	from { opacity: 0;}
+	to { opacity: 1;}
+}
 /* No chat session animation styles */
 .no-chat-animation {
 	display: flex;
