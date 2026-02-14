@@ -82,12 +82,22 @@
           </div>
         </ng-container>
       </div>
+      <!-- Input only when activeConversation exists -->
+      <app-chat-input [loading]="loading" (send)="send($event)">
+      </app-chat-input>
     </ng-container>
     <ng-template #noConversation>
-      <div style="color:#64748b; margin-bottom:24px;">Start a new chat to begin your conversation.</div>
+      <div class="no-chat-animation">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" class="bounce">
+          <circle cx="12" cy="12" r="10" stroke="#6366f1" stroke-width="2" fill="#eef2ff"/>
+          <path d="M8 12h8M8 16h5" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="no-chat-message">
+          <strong>No chat session found!</strong>
+          <p>Start a new chat to begin your conversation.</p>
+        </div>
+        <button class="indigo-btn" (click)="startNewChat()">Start New Chat</button>
+      </div>
     </ng-template>
-    <!-- Input -->
-    <app-chat-input [loading]="loading" (send)="send($event)">
-    </app-chat-input>
   </main>
 </div>
