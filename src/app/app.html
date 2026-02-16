@@ -3,7 +3,14 @@
     <div class="left">
       <h2 class="brand">{{ appName }}</h2>
     </div>
+    <div class="right">
+      <button class="logout-btn" (click)="showLogoutConfirm = true">
+        <span class="logout-icon">🚪</span>
+        <span class="logout-label">Logout</span>
+      </button>
+    </div>
   </div>
+  <app-logout-confirm *ngIf="showLogoutConfirm" (confirm)="logout()" (cancel)="showLogoutConfirm = false"></app-logout-confirm>
 </header>
 
 <app-toast></app-toast>

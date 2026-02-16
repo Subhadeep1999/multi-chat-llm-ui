@@ -1,18 +1,38 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { ToastComponent } from './shared/components/toast/toast.component';
-// import { AuthService } from './core/services/auth.service';
-// import { LogoutConfirmComponent } from './shared/components/logout-confirm/logout-confirm.component';
+import { LogoutConfirmComponent } from './shared/components/logout-confirm/logout-confirm.component';
 import { ToastService } from './core/services/toast.service';
+import { AuthService } from './core/services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastComponent],
+  imports: [CommonModule, RouterOutlet, ToastComponent, LogoutConfirmComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
 export class AppComponent {
   appName = 'Multi-LLM Chat';
-  constructor() {}
+  showLogoutConfirm = false;
+  constructor(private router: Router, private auth: AuthService) {
+    console.log('AppComponent constructed, AuthService:', !!auth);
+  }
+
+  logout() {
+    console.log('Logout clicked');
+    this.auth.logout().subscribe({
+      next: () => {
+        localStorage.removeItem('access_token');
+        this.showLogoutConfirm = false;
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        localStorage.removeItem('access_token');
+        this.showLogoutConfirm = false;
+        this.router.navigate(['/']);
+      }
+    });
+  }
 }

@@ -1,23 +1,13 @@
-<div class="bg">
-  <div class="login-card">
-    <h1 class="app-title">Multi-LLM Compare</h1>
-    <p class="tag">Compare multiple LLMs side-by-side</p>
-
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <input formControlName="email" placeholder="Email" />
-      <input type="password" formControlName="password" placeholder="Password" />
-
-      <button class="login-btn" [disabled]="loading">
-        {{ isRegister ? 'Create Account' : 'Sign In' }}
-      </button>
-    </form>
-
-    <div id="google-btn" style="margin-top:12px"></div>
-
-    <div class="hint">
-      <a (click)="toggleMode()">
-        {{ isRegister ? 'Already have an account? Sign in' : 'New here? Create an account' }}
-      </a>
-    </div>
+<div class="login-container">
+  <h2>Login</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <input formControlName="email" placeholder="Email" type="email" />
+    <input formControlName="password" placeholder="Password" type="password" />
+    <button type="submit" [disabled]="loading">Login</button>
+    <div class="error" *ngIf="error">{{ error }}</div>
+  </form>
+  <div class="register-link">
+    Don't have an account? <a href="#" (click)="toggleRegister(); $event.preventDefault()">Register</a>
   </div>
+  <app-register *ngIf="showRegister" (registered)="showRegister=false"></app-register>
 </div>
