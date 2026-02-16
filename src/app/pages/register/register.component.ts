@@ -14,6 +14,8 @@ export class RegisterComponent {
   form: FormGroup;
   error: string = '';
   loading = false;
+  showPassword = false;
+  showConfirmPassword = false;
   @Output() registered = new EventEmitter<void>();
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
@@ -43,5 +45,12 @@ export class RegisterComponent {
         this.loading = false;
       }
     });
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
+  toggleShowConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 }

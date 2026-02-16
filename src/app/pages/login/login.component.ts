@@ -17,6 +17,7 @@ export class LoginComponent {
   error: string = '';
   loading = false;
   showRegister = false;
+  showPassword = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.form = this.fb.group({
@@ -43,5 +44,9 @@ export class LoginComponent {
 
   toggleRegister() {
     this.showRegister = !this.showRegister;
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 }
