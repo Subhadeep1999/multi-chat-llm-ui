@@ -1,33 +1,42 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
-import { from, Observable } from 'rxjs';
+import {
+  Auth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from '@angular/fire/auth';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class FirebaseAuthService {
+
   private auth = inject(Auth);
 
-  login(email: string, password: string): Observable<any> {
-    return from(signInWithEmailAndPassword(this.auth, email, password));
+  register(email: string, password: string) {
+    return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
-  register(email: string, password: string): Observable<any> {
-    return from(createUserWithEmailAndPassword(this.auth, email, password));
+  login(email: string, password: string) {
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
 
-  logout(): Observable<void> {
-    return from(signOut(this.auth));
-  }
-
-  loginWithGoogle(): Observable<any> {
+  loginWithGoogle() {
     const provider = new GoogleAuthProvider();
-    return from(signInWithPopup(this.auth, provider));
+    return signInWithPopup(this.auth, provider);
   }
 
-  getCurrentUser(): Promise<User | null> {
+  logout() {
+    return signOut(this.auth);
+  }
+
+  getCurrentUser() {
     return this.auth.currentUser;
   }
 
-  onAuthStateChanged(callback: (user: User | null) => void) {
-    return onAuthStateChanged(this.auth, callback);
+  async getIdToken() {
+    return await this.auth.currentUser?.getIdToken();
   }
 }

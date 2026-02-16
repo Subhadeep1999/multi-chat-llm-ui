@@ -1,82 +1,61 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FirebaseAuthService } from '../../core/services/firebase-auth.service';
-
-declare const google: any;
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.component.html'
 })
-export class LoginComponent implements AfterViewInit {
-  form!: FormGroup;
-  isRegister = false;
-  loading = false;
+export class LoginComponent {
 
+  loading = false;
+  errorMsg = '';
+  isRegister = false;
+ form:FormGroup;
   constructor(
     private fb: FormBuilder,
-    private auth: FirebaseAuthService,
+    private authService: FirebaseAuthService,
     private router: Router
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
-
   toggleMode() {
     this.isRegister = !this.isRegister;
+    this.errorMsg = '';
   }
 
   submit() {
-    if (this.form.invalid || this.loading) return;
-    this.loading = true;
+    if (this.form.invalid) return;
+
     const { email, password } = this.form.value;
+    this.loading = true;
+
     if (this.isRegister) {
-      this.auth.register(email, password).subscribe({
-        next: () => {
-          this.isRegister = false;
-          this.loading = false;
-        },
-        error: err => {
-          alert(err?.message || 'Registration failed');
-          this.loading = false;
-        }
-      });
+      this.authService.register(email!, password!)
+        .then(() => this.router.navigate(['/chat']))
+        .catch(err => this.errorMsg = err.message)
+        .finally(() => this.loading = false);
     } else {
-      this.auth.login(email, password).subscribe({
-        next: () => this.router.navigate(['/chat']),
-        error: err => {
-          alert(err?.message || 'Authentication failed');
-          this.loading = false;
-        },
-        complete: () => (this.loading = false)
-      });
+      this.authService.login(email!, password!)
+        .then(() => this.router.navigate(['/chat']))
+        .catch(err => this.errorMsg = err.message)
+        .finally(() => this.loading = false);
     }
   }
 
-  ngAfterViewInit() {
-    // Optionally, you can use Google button from Firebase UI or your own button
-    // For now, just add a click handler for Google login
-    const btn = document.getElementById('google-btn');
-    if (btn) {
-      btn.innerHTML = '<button class="login-btn" style="width:100%">Sign in with Google</button>';
-      btn.onclick = () => {
-        this.loading = true;
-        this.auth.loginWithGoogle().subscribe({
-          next: () => this.router.navigate(['/chat']),
-          error: () => {
-            alert('Google login failed');
-            this.loading = false;
-          },
-          complete: () => (this.loading = false)
-        });
-      };
-    }
+  googleLogin() {
+    this.loading = true;
+
+    this.authService.loginWithGoogle()
+      .then(() => this.router.navigate(['/chat']))
+      .catch(err => this.errorMsg = err.message)
+      .finally(() => this.loading = false);
   }
 }

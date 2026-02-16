@@ -38,44 +38,44 @@
   font-size: 0.9rem;
 }
 
-label {
-  display: block;
-  margin-bottom: 12px;
-}
-
-input {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #e6e9ee;
-  font-size: 0.95rem;
-  outline: none;
-}
-
-input:focus {
-  box-shadow: 0 6px 20px rgba(59,130,246,0.08);
-  border-color: #3b82f6;
-}
-
 .login-btn {
   width: 100%;
-  padding: 10px 12px;
-  margin-top: 8px;
-  border-radius: 10px;
-  background: linear-gradient(180deg,#6366f1,#4f46e5);
-  color: white;
-  font-weight: 700;
+  padding: 12px;
+  margin-top: 12px;
   border: none;
+  border-radius: 8px;
+  background: #6366f1;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.08rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.login-btn:disabled {
+  background: #a5b4fc;
+  cursor: not-allowed;
+}
+.login-btn:hover:not(:disabled) {
+  background: #818cf8;
+}
+
+input[formControlName] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #a5b4fc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.hint {
+  margin-top: 18px;
+  color: #6366f1;
+  font-size: 0.98rem;
   cursor: pointer;
 }
 
-.login-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.google-btn {
-  margin-top: 12px;
-  background: #e5e7eb;
-  color: #6b7280;
+.error-msg {
+  color: #e11d48;
+  margin: 10px 0 0 0;
 }

@@ -12,7 +12,11 @@
       </button>
     </form>
 
-    <div id="google-btn" style="margin-top:12px"></div>
+    <button class="login-btn" type="button" (click)="googleLogin()" [disabled]="loading" style="width:100%;margin-top:12px">
+      Sign in with Google
+    </button>
+
+    <div *ngIf="errorMsg" class="error-msg" style="color:#e11d48;margin:10px 0 0 0;">{{ errorMsg }}</div>
 
     <div class="hint">
       <a (click)="toggleMode()">
