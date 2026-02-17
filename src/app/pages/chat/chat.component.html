@@ -1,3 +1,4 @@
+
 <div class="layout">
   <!-- Sidebar -->
   <aside class="sidebar">
@@ -30,8 +31,7 @@
 
   <!-- Main Chat Area -->
   <main class="chat-area chat-window-redesign">
-    <div style="margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
-      <!-- Sparkles SVG Icon -->
+    <div class="chat-header-bar">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M12 2v2m0 16v2m8-8h2M2 12H4m13.657-6.343l1.414 1.414M4.929 19.071l1.414-1.414m0-12.728L4.929 4.929m12.728 12.728l1.414 1.414M12 6a6 6 0 100 12 6 6 0 000-12z"
@@ -39,70 +39,72 @@
       </svg>
       <h2 class="app-title-gradient">Multi-LLM Chat</h2>
     </div>
-    <ng-container *ngIf="activeConversation; else noConversation">
-      <div class="chat-messages-scroll grouped-chat">
-        <ng-container *ngFor="let group of getPromptResponseGroups()">
-          <div class="prompt-row" style="display: flex; justify-content: flex-end;">
-            <div class="vibrant-prompt"
-              style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.4); padding: 10px 16px; border-radius: 12px; display: inline-flex; align-items: center; margin: 10px 0;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              <span
-                style="font-weight: 600; font-size: 0.95rem; color: #e2e8f0; letter-spacing: 0.5px; opacity: 0.9;">Prompt:</span>
-              <span style="margin-left: 8px; color: #ffffff; font-size: 0.95rem; font-weight: 400;">{{
-                group.prompt.content }}</span>
+    <div class="chat-scrollable">
+      <ng-container *ngIf="activeConversation; else noConversation">
+        <div class="chat-messages-scroll grouped-chat">
+          <ng-container *ngFor="let group of getPromptResponseGroups()">
+            <div class="prompt-row" style="display: flex; justify-content: flex-end;">
+              <div class="vibrant-prompt"
+                style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.4); padding: 10px 16px; border-radius: 12px; display: inline-flex; align-items: center; margin: 10px 0;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span
+                  style="font-weight: 600; font-size: 0.95rem; color: #e2e8f0; letter-spacing: 0.5px; opacity: 0.9;">Prompt:</span>
+                <span style="margin-left: 8px; color: #ffffff; font-size: 0.95rem; font-weight: 400;">{{
+                  group.prompt.content }}</span>
+              </div>
             </div>
-          </div>
-          <div class="llm-card-row">
-            <app-model-card [modelName]="'Gemini'" [response]="group.responses.gemini"
-              [isLoading]="group.loading && !group.responses.gemini" [modelOptions]="[]" [selectedModel]="''"
-              [showSelect]="group.isLatest && !group.selectedLlm && group.responses.gemini"
-              [showReset]="group.isLatest && group.selectedLlm === 'gemini'" [selected]="group.selectedLlm === 'gemini'"
-              [disabled]="group.selectedLlm && group.selectedLlm !== 'gemini'" (select)="onSelectLlm(group, $event)"
-              (modelChange)="null">
-            </app-model-card>
-            <app-model-card [modelName]="'DeepSeek Chat'" [response]="group.responses.deepseek_chat"
-              [isLoading]="group.loading && !group.responses.deepseek_chat" [modelOptions]="[]" [selectedModel]="''"
-              [showSelect]="group.isLatest && !group.selectedLlm && group.responses.deepseek_chat"
-              [showReset]="group.isLatest && group.selectedLlm === 'deepseek_chat'"
-              [selected]="group.selectedLlm === 'deepseek_chat'"
-              [disabled]="group.selectedLlm && group.selectedLlm !== 'deepseek_chat'"
-              (select)="onSelectLlm(group, $event)" (modelChange)="null">
-            </app-model-card>
-            <app-model-card [modelName]="'DeepSeek Coder'" [response]="group.responses.deepseek_coder"
-              [isLoading]="group.loading && !group.responses.deepseek_coder" [modelOptions]="[]" [selectedModel]="''"
-              [showSelect]="group.isLatest && !group.selectedLlm && group.responses.deepseek_coder"
-              [showReset]="group.isLatest && group.selectedLlm === 'deepseek_coder'"
-              [selected]="group.selectedLlm === 'deepseek_coder'"
-              [disabled]="group.selectedLlm && group.selectedLlm !== 'deepseek_coder'"
-              (select)="onSelectLlm(group, $event)" (modelChange)="null">
-            </app-model-card>
-          </div>
-        </ng-container>
-      </div>
-      <!-- Input only when activeConversation exists -->
-      <app-chat-input [loading]="loading" (send)="send($event)">
-      </app-chat-input>
-    </ng-container>
-    <ng-template #noConversation>
-      <div class="welcome-animation-alt">
-        <div class="wave-container">
-          <svg class="wave-svg" viewBox="0 0 120 28" preserveAspectRatio="none">
-            <path d="M0,20 Q30,10 60,20 T120,20 V28 H0 Z" fill="#a5b4fc"/>
-          </svg>
-          <div class="floating-icon floating1">💬</div>
-          <div class="floating-icon floating2">💡</div>
-          <div class="floating-icon floating3">✨</div>
+            <div class="llm-card-row">
+              <app-model-card [modelName]="'Gemini'" [response]="group.responses.gemini"
+                [isLoading]="group.loading && !group.responses.gemini" [modelOptions]="[]" [selectedModel]="''"
+                [showSelect]="group.isLatest && !group.selectedLlm && group.responses.gemini"
+                [showReset]="group.isLatest && group.selectedLlm === 'gemini'" [selected]="group.selectedLlm === 'gemini'"
+                [disabled]="group.selectedLlm && group.selectedLlm !== 'gemini'" (select)="onSelectLlm(group, $event)"
+                (modelChange)="null">
+              </app-model-card>
+              <app-model-card [modelName]="'DeepSeek Chat'" [response]="group.responses.deepseek_chat"
+                [isLoading]="group.loading && !group.responses.deepseek_chat" [modelOptions]="[]" [selectedModel]="''"
+                [showSelect]="group.isLatest && !group.selectedLlm && group.responses.deepseek_chat"
+                [showReset]="group.isLatest && group.selectedLlm === 'deepseek_chat'"
+                [selected]="group.selectedLlm === 'deepseek_chat'"
+                [disabled]="group.selectedLlm && group.selectedLlm !== 'deepseek_chat'"
+                (select)="onSelectLlm(group, $event)" (modelChange)="null">
+              </app-model-card>
+              <app-model-card [modelName]="'DeepSeek Coder'" [response]="group.responses.deepseek_coder"
+                [isLoading]="group.loading && !group.responses.deepseek_coder" [modelOptions]="[]" [selectedModel]="''"
+                [showSelect]="group.isLatest && !group.selectedLlm && group.responses.deepseek_coder"
+                [showReset]="group.isLatest && group.selectedLlm === 'deepseek_coder'"
+                [selected]="group.selectedLlm === 'deepseek_coder'"
+                [disabled]="group.selectedLlm && group.selectedLlm !== 'deepseek_coder'"
+                (select)="onSelectLlm(group, $event)" (modelChange)="null">
+              </app-model-card>
+            </div>
+          </ng-container>
         </div>
-        <div class="welcome-message">
-          <h2>Welcome to Multi-LLM Chat!</h2>
-          <p>Seamlessly chat with multiple AI models in one place.<br>
-          Click below to start your first conversation.</p>
+      </ng-container>
+      <ng-template #noConversation>
+        <div class="welcome-animation-alt">
+          <div class="wave-container">
+            <svg class="wave-svg" viewBox="0 0 120 28" preserveAspectRatio="none">
+              <path d="M0,20 Q30,10 60,20 T120,20 V28 H0 Z" fill="#a5b4fc"/>
+            </svg>
+            <div class="floating-icon floating1">💬</div>
+            <div class="floating-icon floating2">💡</div>
+            <div class="floating-icon floating3">✨</div>
+          </div>
+          <div class="welcome-message">
+            <h2>Welcome to Multi-LLM Chat!</h2>
+            <p>Seamlessly chat with multiple AI models in one place.<br>
+            Click below to start your first conversation.</p>
+          </div>
+          <button class="indigo-btn" (click)="startNewChat()">Start New Chat</button>
         </div>
-        <button class="indigo-btn" (click)="startNewChat()">Start New Chat</button>
-      </div>
-    </ng-template>
+      </ng-template>
+    </div>
+    <div class="chat-input-bar">
+      <app-chat-input [loading]="loading" (send)="send($event)"></app-chat-input>
+    </div>
   </main>
 </div>

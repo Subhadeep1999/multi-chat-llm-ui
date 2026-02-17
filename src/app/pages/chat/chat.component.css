@@ -1,3 +1,7 @@
+html, body {
+	height: 100%;
+	overflow: hidden;
+}
 .wave-container {
 	position: relative;
 	width: 90px;
@@ -392,11 +396,15 @@
 	gap: 16px;
 	margin-bottom: 24px;
 }
+
 .layout {
 	display: flex;
-	height: 100vh;
+	height: 92vh;
+	width: 100vw;
 	background: #1e293b;
 	font-family: 'Inter', system-ui, sans-serif;
+	overflow: hidden;
+	min-width: 0;
 }
 
 @keyframes vibrant-bg-waves {
@@ -413,12 +421,16 @@
 	display: flex;
 	flex-direction: column;
 	border-right: 1px solid #334155;
+	height: 100%;
+	position: relative;
+	min-width: 0;
 }
 
 .conversation-list {
 	flex: 1 1 auto;
 	overflow-y: auto;
-	max-height: calc(100vh - 100px);
+	max-height: calc(100vh - 110px); /* Adjusted for header and new chat button */
+	min-height: 0;
 	padding-right: 4px;
 }
 
@@ -457,15 +469,54 @@
 }
 
 .chat-area {
-	flex: 1;
-	padding: 32px 0 0 0;
+	flex: 1 1 0;
 	display: flex;
 	flex-direction: column;
-	overflow-y: auto;
-	max-height: 100vh;
+	height: 100%;
+	min-width: 0;
 	background: #1e293b;
 	border-radius: 0 0 0 0;
 	box-shadow: none;
+	position: relative;
+	overflow: hidden;
+}
+
+.chat-header-bar {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 0;
+	padding: 32px 0 0 0;
+	background: #1e293b;
+	z-index: 2;
+}
+
+.chat-scrollable {
+	flex: 1 1 auto;
+	min-height: 0;
+	height: 100%;
+	overflow-y: auto;
+	display: block;
+	position: relative;
+}
+
+.chat-messages-scroll {
+	min-height: 0;
+	overflow-y: auto;
+	height: 100%;
+}
+
+.chat-input-bar {
+	flex: 0 0 auto;
+	padding: 18px 0 18px 0;
+	background: #1e293b;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 3;
+	box-shadow: 0 -2px 12px 0 rgba(30,41,59,0.12);
 }
 	/* Removed misplaced properties that were outside of any selector */
 

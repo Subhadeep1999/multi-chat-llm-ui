@@ -1,18 +1,21 @@
+
 <header class="app-header">
   <div class="header-inner">
     <div class="left">
       <h2 class="brand">{{ appName }}</h2>
     </div>
-    <div class="right">
+    <div class="right" *ngIf="!isLoginRoute">
       <button class="logout-btn" (click)="showLogoutConfirm = true">
         <span class="logout-icon">🚪</span>
         <span class="logout-label">Logout</span>
       </button>
     </div>
   </div>
-  <app-logout-confirm *ngIf="showLogoutConfirm" (confirm)="logout()" (cancel)="showLogoutConfirm = false"></app-logout-confirm>
+  <app-logout-confirm *ngIf="showLogoutConfirm && !isLoginRoute" (confirm)="logout()" (cancel)="showLogoutConfirm = false"></app-logout-confirm>
 </header>
 
-<app-toast></app-toast>
+<!-- <app-toast></app-toast> -->
 
-<router-outlet></router-outlet>
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>

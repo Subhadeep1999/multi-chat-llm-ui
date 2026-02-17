@@ -16,7 +16,13 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   appName = 'Multi-LLM Chat';
   showLogoutConfirm = false;
+  isLoginRoute = false;
   constructor(private router: Router, private auth: AuthService) {
+    this.router.events.subscribe(() => {
+      this.isLoginRoute = this.router.url === '/' || this.router.url.startsWith('/login');
+    });
+    // Set initial value
+    this.isLoginRoute = this.router.url === '/' || this.router.url.startsWith('/login');
     console.log('AppComponent constructed, AuthService:', !!auth);
   }
 
