@@ -2,9 +2,7 @@
 <div class="layout">
   <!-- Sidebar -->
   <aside class="sidebar">
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-      <span style="font-weight: 700; font-size: 1.1rem; color: #a5b4fc;">Chats</span>
-    </div>
+    <br>
     <button class="new-chat" (click)="startNewChat()">+ New Chat</button>
     <div class="conversation-list">
       <div *ngFor="let conv of conversations" class="conversation" [class.active]="conv === activeConversation">
