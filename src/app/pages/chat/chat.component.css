@@ -239,7 +239,6 @@ html, body {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	text-fill-color: transparent;
 	margin-bottom: 8px;
 }
 .welcome-message p {
@@ -281,7 +280,6 @@ html, body {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	text-fill-color: transparent;
 	margin-bottom: 8px;
 }
 .welcome-message p {
@@ -348,7 +346,6 @@ html, body {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	text-fill-color: transparent;
 	display: inline-block;
 }
 .indigo-btn {

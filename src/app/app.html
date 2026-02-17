@@ -1,7 +1,12 @@
 
 <header class="app-header">
   <div class="header-inner">
-    <div class="left">
+    <div class="left" style="display: flex; align-items: center; gap: 8px;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12 2v2m0 16v2m8-8h2M2 12H4m13.657-6.343l1.414 1.414M4.929 19.071l1.414-1.414m0-12.728L4.929 4.929m12.728 12.728l1.414 1.414M12 6a6 6 0 100 12 6 6 0 000-12z"
+          stroke="#a5b4fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
       <h2 class="brand">{{ appName }}</h2>
     </div>
     <div class="right" *ngIf="!isLoginRoute">

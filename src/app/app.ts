@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
-import { ToastComponent } from './shared/components/toast/toast.component';
 import { LogoutConfirmComponent } from './shared/components/logout-confirm/logout-confirm.component';
 import { ToastService } from './core/services/toast.service';
 import { AuthService } from './core/services/auth.service';
@@ -9,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ToastComponent, LogoutConfirmComponent],
+  imports: [CommonModule, RouterOutlet, LogoutConfirmComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
