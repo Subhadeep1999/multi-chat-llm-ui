@@ -27,10 +27,14 @@ export class RegisterComponent {
   }
 
   submit() {
-    if (this.form.invalid || this.form.value.password !== this.form.value.confirmPassword) {
+    if (this.form.value.password !== this.form.value.confirmPassword) {
       this.error = "Passwords do not match";
       return;
     }
+    // if (this.form.invalid) {
+    //   this.error = "Form is invalid. Please check all fields.";
+    //   return;
+    // }
     this.loading = true;
     this.error = '';
     this.http.post<any>('/api/auth/register', {
