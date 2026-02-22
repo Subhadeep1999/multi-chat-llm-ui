@@ -55,7 +55,7 @@
                 [showSelect]="group.isLatest && !group.selectedLlm && group.responses.gemini"
                 [showReset]="group.isLatest && group.selectedLlm === 'gemini'" [selected]="group.selectedLlm === 'gemini'"
                 [disabled]="group.selectedLlm && group.selectedLlm !== 'gemini'" (select)="onSelectLlm(group, $event)"
-                (modelChange)="null">
+                (reset)="resetChat()" (modelChange)="null">
               </app-model-card>
               <app-model-card [modelName]="'DeepSeek Chat'" [response]="group.responses.deepseek_chat"
                 [isLoading]="group.loading && !group.responses.deepseek_chat" [modelOptions]="[]" [selectedModel]="''"
@@ -63,7 +63,7 @@
                 [showReset]="group.isLatest && group.selectedLlm === 'deepseek_chat'"
                 [selected]="group.selectedLlm === 'deepseek_chat'"
                 [disabled]="group.selectedLlm && group.selectedLlm !== 'deepseek_chat'"
-                (select)="onSelectLlm(group, $event)" (modelChange)="null">
+                (select)="onSelectLlm(group, $event)" (reset)="resetChat()" (modelChange)="null">
               </app-model-card>
               <app-model-card [modelName]="'DeepSeek Coder'" [response]="group.responses.deepseek_coder"
                 [isLoading]="group.loading && !group.responses.deepseek_coder" [modelOptions]="[]" [selectedModel]="''"
@@ -71,7 +71,7 @@
                 [showReset]="group.isLatest && group.selectedLlm === 'deepseek_coder'"
                 [selected]="group.selectedLlm === 'deepseek_coder'"
                 [disabled]="group.selectedLlm && group.selectedLlm !== 'deepseek_coder'"
-                (select)="onSelectLlm(group, $event)" (modelChange)="null">
+                (select)="onSelectLlm(group, $event)" (reset)="resetChat()" (modelChange)="null">
               </app-model-card>
             </div>
           </ng-container>

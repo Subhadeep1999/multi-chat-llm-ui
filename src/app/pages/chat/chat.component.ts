@@ -93,76 +93,80 @@ export class ChatComponent implements OnInit {
   }
 
     getPromptResponseGroups() {
-    if (!this.activeConversation) return [];
-    const groups: any[] = [];
-    const msgs = this.activeConversation.messages;
-    for (let i = 0; i < msgs.length; i++) {
-      if (msgs[i].role === 'user') {
-        const responses: any = { gemini: '', deepseek_chat: '', deepseek_coder: '' };
-        let loading = false;
-        let j = i + 1;
-        let found = { gemini: false, deepseek_chat: false, deepseek_coder: false };
-        while (j < msgs.length && msgs[j].role === 'assistant') {
-          if (msgs[j].llm_type === 'gemini') {
-            responses.gemini = msgs[j].content;
-            found.gemini = true;
+      if (!this.activeConversation) return [];
+      const groups: any[] = [];
+      const msgs = this.activeConversation.messages;
+      for (let i = 0; i < msgs.length; i++) {
+        if (msgs[i].role === 'user') {
+          const responses: any = { gemini: '', deepseek_chat: '', deepseek_coder: '' };
+          let loading = false;
+          let j = i + 1;
+          let found = { gemini: false, deepseek_chat: false, deepseek_coder: false };
+          while (j < msgs.length && msgs[j].role === 'assistant') {
+            if (msgs[j].llm_type === 'gemini') {
+              responses.gemini = msgs[j].content;
+              found.gemini = true;
+            }
+            if (msgs[j].llm_type === 'deepseek_chat') {
+              responses.deepseek_chat = msgs[j].content;
+              found.deepseek_chat = true;
+            }
+            if (msgs[j].llm_type === 'deepseek_coder') {
+              responses.deepseek_coder = msgs[j].content;
+              found.deepseek_coder = true;
+            }
+            j++;
+            if (found.gemini && found.deepseek_chat && found.deepseek_coder) break;
           }
-          if (msgs[j].llm_type === 'deepseek_chat') {
-            responses.deepseek_chat = msgs[j].content;
-            found.deepseek_chat = true;
+          if (!responses.gemini && !responses.deepseek_chat && !responses.deepseek_coder && i === msgs.length - 1 && this.llmLoading) {
+            loading = true;
           }
-          if (msgs[j].llm_type === 'deepseek_coder') {
-            responses.deepseek_coder = msgs[j].content;
-            found.deepseek_coder = true;
-          }
-          j++;
-          if (found.gemini && found.deepseek_chat && found.deepseek_coder) break;
+          const isLatest = (i === msgs.length - 1) || (msgs.slice(i+1).find(m => m.role === 'user') === undefined);
+          // Use the selected_llm from the user message for this group
+          const selectedLlm = typeof msgs[i].selected_llm === 'string' && msgs[i].selected_llm ? msgs[i].selected_llm : null;
+          // Always show Select & Continue for all 3 LLMs on latest prompt if no LLM is selected
+          let showSelect = false;
+          if (isLatest && !selectedLlm) showSelect = true;
+          groups.push({ prompt: msgs[i], responses, loading, selectedLlm, isLatest, showSelect });
         }
-        if (!responses.gemini && !responses.deepseek_chat && !responses.deepseek_coder && i === msgs.length - 1 && this.llmLoading) {
-          loading = true;
-        }
-        const isLatest = (i === msgs.length - 1) || (msgs.slice(i+1).find(m => m.role === 'user') === undefined);
-        // Use the selected_llm from the user message for this group
-        const selectedLlm = typeof msgs[i].selected_llm === 'string' ? msgs[i].selected_llm : null;
-        groups.push({ prompt: msgs[i], responses, loading, selectedLlm, isLatest });
       }
-    }
-    return groups;
+      return groups;
     }
 
     // Handle LLM selection for a prompt group
     onSelectLlm(group: any, llm: string) {
-    let backendLlm = llm;
-    if (llm === 'DeepSeek Chat' || llm === 'deepseek-chat') backendLlm = 'deepseek_chat';
-    if (llm === 'DeepSeek Coder' || llm === 'deepseek-coder') backendLlm = 'deepseek_coder';
-    if (llm === 'Gemini' || llm === 'gemini') backendLlm = 'gemini';
-    if (llm === 'reset') {
-      // Remove selected_llm from the user message for this group
-      if (group && group.prompt && group.prompt.selected_llm) {
-        delete group.prompt.selected_llm;
+      console.log('LLM selected:', llm, 'for prompt:', group);
+      let backendLlm = llm;
+      if (llm === 'DeepSeek Chat' || llm === 'deepseek-chat') backendLlm = 'deepseek_chat';
+      if (llm === 'DeepSeek Coder' || llm === 'deepseek-coder') backendLlm = 'deepseek_coder';
+      if (llm === 'Gemini' || llm === 'gemini') backendLlm = 'gemini';
+      if (llm === 'reset') {
+        // Remove selected_llm from the user message for this group
+        if (group && group.prompt && group.prompt.selected_llm) {
+          delete group.prompt.selected_llm;
+        }
+        // If this is the latest group, also clear the global selectedLlm
+        if (group && group.isLatest) {
+          this.selectedLlm = null;
+        }
+      } else {
+        // Set selected_llm on the user message for this group
+        if (group && group.prompt) {
+          group.prompt.selected_llm = backendLlm;
+        }
+        // If this is the latest group, update the global selectedLlm
+        if (group && group.isLatest) {
+          this.selectedLlm = backendLlm;
+        }
+        // Call backend to persist selection for latest user message
+        if (this.activeConversation) {
+          this.http.post(environment.apiBaseUrl + '/chat/select-llm', {
+            session_id: this.activeConversation.sessionId,
+            llm: backendLlm
+          }).subscribe();
+        }
       }
-      // If this is the latest group, also clear the global selectedLlm
-      if (group && group.isLatest) {
-        this.selectedLlm = null;
-      }
-    } else {
-      // Set selected_llm on the user message for this group
-      if (group && group.prompt) {
-        group.prompt.selected_llm = backendLlm;
-      }
-      // If this is the latest group, update the global selectedLlm
-      if (group && group.isLatest) {
-        this.selectedLlm = backendLlm;
-      }
-      // Call backend to persist selection for latest user message
-      if (this.activeConversation) {
-        this.http.post('/api/chat/select-llm', {
-          session_id: this.activeConversation.sessionId,
-          llm: backendLlm
-        }).subscribe();
-      }
-    }
-    this.cd.detectChanges();
+      this.cd.detectChanges();
     }
 
   // 🔹 Send message from input component

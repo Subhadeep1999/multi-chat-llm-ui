@@ -21,11 +21,13 @@ export class ModelCardComponent implements OnChanges {
   @Input() disabled = false;
   @Output() modelChange = new EventEmitter<string>();
   @Output() select = new EventEmitter<string>();
-    selectLlm() {
+  @Output() reset = new EventEmitter<string>();
+
+  selectLlm() {
       this.select.emit(this.modelName);
     }
   resetLlm() {
-    this.select.emit('reset');
+    this.reset.emit('reset');
   }
   onModelChange(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
