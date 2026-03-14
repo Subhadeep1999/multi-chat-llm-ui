@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from '../register/register.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -48,5 +49,17 @@ export class LoginComponent {
 
   toggleShowPassword() {
     this.showPassword = !this.showPassword;
+  }
+
+  loginWithGoogle() {
+    const clientId = environment.googleClientId;
+    const nonce = Math.random().toString(36).substring(2);
+    window.location.href =
+      'https://accounts.google.com/o/oauth2/v2/auth?client_id=' +
+      encodeURIComponent(clientId) +
+      '&redirect_uri=' + encodeURIComponent(window.location.origin + '/auth/google/callback') +
+      '&response_type=id_token token' +
+      '&scope=openid%20email%20profile' +
+      '&nonce=' + nonce;
   }
 }

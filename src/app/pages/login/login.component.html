@@ -16,6 +16,10 @@
             </span>
           </div>
           <button type="submit" [disabled]="loading">Login</button>
+          <button type="button" class="google-login-btn" (click)="loginWithGoogle()">
+            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" style="width:20px;vertical-align:middle;margin-right:8px;" />
+            Sign in with Google
+          </button>
           <div class="error" *ngIf="error">{{ error }}</div>
         </form>
         <div class="register-link">
