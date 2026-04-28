@@ -31,7 +31,7 @@ export class LoginComponent {
     if (this.form.invalid) return;
     this.loading = true;
     this.error = '';
-    this.http.post<any>('/api/auth/login', this.form.value).subscribe({
+    this.http.post<any>(`${environment.apiBaseUrl}/api/auth/login`, this.form.value).subscribe({
       next: (res) => {
         localStorage.setItem('access_token', res.access_token);
         this.router.navigate(['/chat']);

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -37,7 +38,7 @@ export class RegisterComponent {
     // }
     this.loading = true;
     this.error = '';
-    this.http.post<any>('/api/auth/register', {
+    this.http.post<any>(`${environment.apiBaseUrl}/api/auth/register`, {
       email: this.form.value.email,
       password: this.form.value.password
     }).subscribe({
