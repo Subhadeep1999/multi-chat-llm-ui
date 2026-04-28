@@ -45,12 +45,17 @@ body, .login-bg-animated {
   width: 340px;
   background: rgba(255,255,255,0.97);
   border-radius: 18px;
-  box-shadow: 0 4px 32px #6366f155;
+  /* removed original shadow to avoid white line */
+  box-shadow: none;
   padding: 36px 28px 28px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
   animation: fadeInUp 0.7s cubic-bezier(.23,1.01,.32,1) both;
+  /* Remove any border or outline that might create a thin white line */
+  border: none;
+  border-bottom: none;
+  outline: none;
 }
 
 @keyframes fadeInUp {
