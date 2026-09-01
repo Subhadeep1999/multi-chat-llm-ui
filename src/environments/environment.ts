@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://127.0.0.1:8000',
-  googleClientId: ${clent_id}
+  apiBaseUrl: "${base_uri}",
+  googleClientId: "${clent_id}"
 };
